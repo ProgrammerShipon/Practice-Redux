@@ -1,31 +1,13 @@
-import { useState } from "react";
+import ButtonCount from "../Button/ButtonCount";
 
-const Count = () => {
-  const [count, setCount] = useState(0);
-
-  const increment = () => {
-    setCount((prev) => prev + 1);
-  };
-
-  const decrement = () => {
-    setCount((prev) => prev - 1);
-  };
-
+const Count = ({ idx, increment, decrement }) => {
   return (
-    <div className="flex items-center justify-between mx-5 max-w-xs my-5">
-      <button
-        onClick={increment}
-        className="text-lg py-2 px-5 rounded-lg text-blue-950 bg-blue-400"
-      >
-        Increment{" "}
-      </button>
-      <strong className="text-2xl"> {count} </strong>
-      <button
-        onClick={decrement}
-        className="text-lg py-2 px-5 rounded-lg text-red-950 bg-red-400"
-      >
-        Decrement{" "}
-      </button>
+    <div className="items-center justify-between mx-5 max-w-md min-h-min inline-block my-5 bg-slate-50 py-5 px-6 rounded-lg shadow gap-5">
+      <ButtonCount handle={() => increment(idx)}> Increment </ButtonCount>
+
+      <strong className="text-2xl px-1 md:px-2"> {count} </strong>
+
+      <ButtonCount handle={() => decrement(idx)}> Decrement </ButtonCount>
     </div>
   );
 };
