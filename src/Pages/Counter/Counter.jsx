@@ -1,6 +1,6 @@
-import { connect } from "react-redux";
 import Count from "../../Components/Counter/Count";
-import { decrement, increment } from "../../Redux/Counter/Action";
+import DynamicCount from "../../Components/Counter/DynamicCount";
+import HooksCount from "../../Components/Counter/HooksCount";
 
 const Counter = () => {
   return (
@@ -10,6 +10,8 @@ const Counter = () => {
         {/* counter component */}
         <div className="py-2 my-1 flex flex-col gap-2">
           <Count />
+          <HooksCount />
+          <DynamicCount />
         </div>
       </div>
     </section>
