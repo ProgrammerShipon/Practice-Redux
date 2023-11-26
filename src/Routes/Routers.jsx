@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayouts from "../Layouts/MainLayouts";
 import Home from "../Pages/Home/Home";
-import Counter from "../Pages/Counter/Counter";
 
 const BrowserRoute = createBrowserRouter([
   {
@@ -11,11 +10,7 @@ const BrowserRoute = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-      },
-      {
-        path: "/counter",
-        element: <Counter />,
-      },
+      }
     ],
   },
 ]);
