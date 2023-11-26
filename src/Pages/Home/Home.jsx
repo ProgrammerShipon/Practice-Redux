@@ -1,33 +1,54 @@
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { booking, cancelBooking } from "../../Features/Booking/BookingActions";
 import frame from "../../assets/icons/Frame.svg";
 import Vector from "../../assets/icons/Vector (1).svg";
 import Vector3 from "../../assets/icons/Vector (3).svg";
 
 const Home = () => {
-  const [bookingData, setBookingData] = useState([]);
+  const dispatch = useDispatch();
+  const bookingData = useSelector((state) => state?.BookingFlight);
+
+  let c = bookingData[bookingData.length - 1];
+  console.log("bookingData ", bookingData);
+  console.log("C ", c);
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
+    console.log("Clicked");
 
-    // You can access form data using event.target
-    // and update the state (bookingData) accordingly
     const formData = new FormData(event.target);
-    const newBooking = {
-      from: formData.get("from"),
-      to: formData.get("to"),
-      date: formData.get("date"),
-      guests: formData.get("guests"),
-      ticketClass: formData.get("ticketClass"),
-    };
 
-    setBookingData((prevData) => [...prevData, newBooking]);
+    if (
+      formData.get("from") &&
+      formData.get("to") &&
+      formData.get("date") &&
+      formData.get("ticketClass") &&
+      formData.get("guests")
+    ) {
+      let idx = bookingData[bookingData.length - 1]?.id + 1;
+      const newBooking = {
+        id: idx || 0,
+        from: formData.get("from"),
+        to: formData.get("to"),
+        date: formData.get("date"),
+        guests: formData.get("guests"),
+        ticketClass: formData.get("ticketClass"),
+      };
 
-    console.log(formData.values);
-    console.log("bookingData ", bookingData);
+      if (bookingData.length < 3) {
+        return dispatch(booking(newBooking));
+      } else {
+        return alert("Already 3 Booking Complete.");
+      }
+    } else {
+      return alert("Plz Require all field");
+    }
   };
 
-  const handleRemoveBooking = (index) => {
-    setBookingData((prevData) => prevData.filter((_, i) => i !== index));
+  const handleCancelBooking = (id) => {
+    console.log("id ", id);
+    dispatch(cancelBooking(id));
+    // setBookingData((prevData) => prevData.filter((_, i) => i !== index));
   };
 
   return (
@@ -49,7 +70,7 @@ const Home = () => {
                     className="outline-none px-2 py-2 w-full"
                     name="from"
                     id="lws-from"
-                    required=""
+                    required
                   >
                     <option value="" hidden="">
                       Please Select
@@ -61,6 +82,7 @@ const Home = () => {
                   </select>
                 </div>
               </div>
+
               {/* To */}
               <div className="des-from">
                 <p>Destination To</p>
@@ -70,7 +92,7 @@ const Home = () => {
                     className="outline-none px-2 py-2 w-full"
                     name="to"
                     id="lws-to"
-                    required=""
+                    required
                   >
                     <option value="" hidden="">
                       Please Select
@@ -82,6 +104,7 @@ const Home = () => {
                   </select>
                 </div>
               </div>
+
               {/* Date */}
               <div className="des-from">
                 <p>Journey Date</p>
@@ -90,9 +113,10 @@ const Home = () => {
                   className="outline-none px-2 py-2 w-full date"
                   name="date"
                   id="lws-date"
-                  required=""
+                  required
                 />
               </div>
+
               {/* Guests */}
               <div className="des-from">
                 <p>Guests</p>
@@ -102,7 +126,7 @@ const Home = () => {
                     className="outline-none px-2 py-2 w-full"
                     name="guests"
                     id="lws-guests"
-                    required=""
+                    required
                   >
                     <option value="" hidden="">
                       Please Select
@@ -114,6 +138,7 @@ const Home = () => {
                   </select>
                 </div>
               </div>
+
               {/* Class */}
               <div className="des-from !border-r-0">
                 <p>Class</p>
@@ -123,7 +148,7 @@ const Home = () => {
                     className="outline-none px-2 py-2 w-full"
                     name="ticketClass"
                     id="lws-ticketClass"
-                    required=""
+                    required
                   >
                     <option value="" hidden="">
                       Please Select
@@ -133,6 +158,8 @@ const Home = () => {
                   </select>
                 </div>
               </div>
+
+              {/* booking button */}
               <button className="addCity" type="submit" id="lws-addCity">
                 <svg
                   width="15px"
@@ -155,25 +182,25 @@ const Home = () => {
         </div>
 
         {/* Preview Data */}
-        <div className="table-container">
-          <table className="booking-table">
-            <thead className="bg-gray-100/50">
-              <tr className="text-black text-left">
-                <th>Destination From</th>
-                <th>Destination To</th>
-                <th className="text-center">Journey Date</th>
-                <th className="text-center">Guests</th>
-                <th className="text-center">Class</th>
-                <th className="text-center">Delete</th>
-              </tr>
-            </thead>
+        {bookingData.length > 0 && (
+          <div className="table-container">
+            <table className="booking-table">
+              <thead className="bg-gray-100/50">
+                <tr className="text-black text-left">
+                  <th>Destination From</th>
+                  <th>Destination To</th>
+                  <th className="text-center">Journey Date</th>
+                  <th className="text-center">Guests</th>
+                  <th className="text-center">Class</th>
+                  <th className="text-center">Delete</th>
+                </tr>
+              </thead>
 
-            <tbody
-              className="divide-y divide-gray-300/20"
-              id="lws-previewBooked"
-            >
-              {bookingData != [] &&
-                bookingData?.map((item, idx) => (
+              <tbody
+                className="divide-y divide-gray-300/20"
+                id="lws-previewBooked"
+              >
+                {bookingData?.map((item, idx) => (
                   <tr key={idx} className="lws-bookedTable text-black">
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
@@ -197,7 +224,10 @@ const Home = () => {
                     </td>
                     <td className="px-6 py-4 text-center">
                       <div className="flex justify-center gap-4">
-                        <button className="lws-remove">
+                        <button
+                          onClick={() => handleCancelBooking(item?.id)}
+                          className="lws-remove"
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -217,9 +247,10 @@ const Home = () => {
                     </td>
                   </tr>
                 ))}
-            </tbody>
-          </table>
-        </div>
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
     </>
   );
