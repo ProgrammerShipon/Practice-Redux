@@ -1,6 +1,10 @@
 import { combineReducers } from "redux";
-import { BookingFlight } from "./Booking/BookingReducer";
+import FilterReducer from "./Filters/FilterReducer";
+import todosReducer from "./Todos/TodosReducer";
 
-export const rootReducer = combineReducers({
-  BookingFlight,
+const rootReducer = combineReducers({
+  todos: todosReducer,
+  filters: FilterReducer,
 });
+
+export default rootReducer;

@@ -1,18 +1,11 @@
 import { Outlet } from "react-router-dom";
-import lwsLogo from "../assets/lws-logo.svg";
 
 const MainLayouts = () => {
   return (
     <>
       <header id="header">
-        <div className="container">
-          <img src={lwsLogo} alt="logo" className="logo" />
-          <div className="flex items-center">
-            <a className="text-white min-w-[50px] font-medium" href="#">
-              Home
-            </a>
-            <button className="log-btn btn">Login</button>
-          </div>
+        <div class="fixed top-0 left-0 text-center w-full header bg-violet-600 py-4 text-white font-bold text-lg shadow-lg">
+          Simple Todo Application with Redux
         </div>
       </header>
 
