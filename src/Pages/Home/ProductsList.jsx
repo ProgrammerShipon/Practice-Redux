@@ -5,7 +5,7 @@ import ProductCart from "./ProductCart";
 export default function ProductsList() {
   const products = useSelector((state) => state?.products);
   // const products = [];
-  console.log("products ", products);
+  // console.log("products ", products);
 
   return (
     <>

@@ -1,5 +1,29 @@
+import { useDispatch } from "react-redux";
+import {
+  cartDecrement,
+  cartIncrement,
+  removeCart,
+} from "../../Features/AddToCart/AAction";
+import { productQnDecr, productQnIncr } from "../../Features/Products/PAction";
+
 export default function ShoppingCart({ shop }) {
   const { id, image, title, category, price, quantity } = shop;
+  const dispatch = useDispatch();
+
+  const handleIncrement = (objId) => {
+    dispatch(cartIncrement(objId));
+    dispatch(productQnDecr(objId));
+  };
+
+  const handleDecrement = (objId) => {
+    dispatch(cartDecrement(objId));
+    dispatch(productQnIncr(objId));
+  };
+
+  const handleRemove = (objId) => {
+    dispatch(removeCart(objId));
+  };
+
   return (
     <>
       <div className="space-y-6">
@@ -10,9 +34,7 @@ export default function ShoppingCart({ shop }) {
             <img className="lws-cartImage" src={image} alt="product" />
             {/* cart item info */}
             <div className="space-y-2">
-              <h4 className="lws-cartName">
-                Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptop
-              </h4>
+              <h4 className="lws-cartName">{title}</h4>
               <p className="lws-cartCategory">{category}</p>
               <p>
                 BDT <span className="lws-cartPrice">{price}</span>
@@ -22,22 +44,32 @@ export default function ShoppingCart({ shop }) {
           <div className="flex items-center justify-center col-span-4 mt-4 space-x-8 md:mt-0">
             {/* amount buttons */}
             <div className="flex items-center space-x-4">
-              <button className="lws-incrementQuantity">
+              <button
+                onClick={() => handleIncrement(id)}
+                className="lws-incrementQuantity"
+              >
                 <i className="text-lg fa-solid fa-plus" />
               </button>
               <span className="lws-cartQuantity">{quantity}</span>
-              <button className="lws-decrementQuantity">
+              <button
+                onClick={() => handleDecrement(id)}
+                className="lws-decrementQuantity"
+              >
                 <i className="text-lg fa-solid fa-minus" />
               </button>
             </div>
             {/* price */}
             <p className="text-lg font-bold">
-              BDT <span className="lws-calculatedPrice">2200</span>
+              BDT{" "}
+              <span className="lws-calculatedPrice">{quantity * price}</span>
             </p>
           </div>
           {/* delete button */}
           <div className="flex items-center justify-center col-span-2 mt-4 md:justify-end md:mt-0">
-            <button className="lws-removeFromCart">
+            <button
+              onClick={() => handleRemove(id)}
+              className="lws-removeFromCart"
+            >
               <i className="text-lg text-red-400 fa-solid fa-trash" />
             </button>
           </div>

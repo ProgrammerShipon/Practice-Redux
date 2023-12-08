@@ -1,13 +1,14 @@
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Features/AddToCart/AAction";
+import { productQnDecr } from "../../Features/Products/PAction";
 
 export default function ProductCart({ product }) {
   const { id, image, title, category, price, quantity } = product;
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
-    console.log("Product Id ", product);
     dispatch(addToCart(product));
+    dispatch(productQnDecr(product?.id));
   };
 
   return (
@@ -27,6 +28,7 @@ export default function ProductCart({ product }) {
           </div>
           <button
             onClick={() => handleAddToCart(product)}
+            disabled={quantity === 0}
             className="lws-btnAddToCart"
           >
             Add To Cart

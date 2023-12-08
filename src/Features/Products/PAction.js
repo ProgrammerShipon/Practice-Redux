@@ -7,14 +7,15 @@ export const added = (obj) => {
   };
 };
 
-export const productQnIncr = (cartId, value) => {
+export const productQnIncr = (cartId, value = 1) => {
   return {
     type: INCREMENTcART,
     payload: { cartId, value },
   };
 };
 
-export const productQnDecr = (cartId, value) => {
+export const productQnDecr = (cartId, value = 1) => {
+  console.log("cartId, value ", cartId, value);
   return {
     type: DECREMENTcART,
     payload: { cartId, value },

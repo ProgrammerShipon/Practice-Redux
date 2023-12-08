@@ -19,14 +19,14 @@ export const removeCart = (cartId) => {
   };
 };
 
-export const cartIncrement = (cartId, value) => {
+export const cartIncrement = (cartId, value = 1) => {
   return {
     type: INCREMENTcART,
     payload: { cartId, value },
   };
 };
 
-export const cartDecrement = (cartId, value) => {
+export const cartDecrement = (cartId, value = 1) => {
   return {
     type: DECREMENTcART,
     payload: { cartId, value },

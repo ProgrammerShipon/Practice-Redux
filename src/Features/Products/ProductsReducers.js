@@ -39,14 +39,14 @@ const ProductsReducers = (state = initialize, action) => {
     case INCREMENTcART:
       return state?.map((cart) =>
         cart?.id == action?.payload?.cartId
-          ? cart?.quantity + action?.payload?.value
+          ? { ...cart, quantity: cart?.quantity + action?.payload?.value }
           : cart
       );
 
     case DECREMENTcART:
       return state?.map((cart) =>
         cart?.id == action?.payload?.cartId
-          ? cart?.quantity - action?.payload?.value
+          ? { ...cart, quantity: cart?.quantity - action?.payload?.value }
           : cart
       );
 
