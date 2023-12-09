@@ -7,19 +7,7 @@ import {
   TOGGLED,
 } from "./TodosTypes";
 
-const initializeState = [
-  {
-    id: 1,
-    text: "Learn React JS",
-    completed: true,
-  },
-  {
-    id: 2,
-    text: "Learn Redux",
-    completed: false,
-    color: "red",
-  },
-];
+const initializeState = [];
 
 const nextTodoId = (todos) => {
   const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
