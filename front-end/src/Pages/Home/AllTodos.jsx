@@ -1,9 +1,16 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import thunkLoadTodos from "../../Features/Todos/Thunk/thunkLoadTodos";
 import Todo from "./Todo";
 
 export default function AllTodos() {
   const todos = useSelector((state) => state?.todos);
   const { colors, status } = useSelector((state) => state?.filters);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(thunkLoadTodos);
+  }, []);
 
   const filterByStatus = (todo) => {
     switch (status) {

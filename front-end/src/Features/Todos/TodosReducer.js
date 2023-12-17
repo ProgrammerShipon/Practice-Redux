@@ -3,6 +3,7 @@ import {
   ALLcOMPLETED,
   CLEARcOMPLETED,
   COLORcHANGED,
+  LOADtODOS,
   REMOVEtODOS,
   TOGGLED,
 } from "./TodosTypes";
@@ -16,6 +17,9 @@ const nextTodoId = (todos) => {
 
 const todosReducer = (state = initializeState, action) => {
   switch (action?.type) {
+    case LOADtODOS:
+      return [...action.payload];
+
     case ADDEDtODOS:
       return [
         ...state,

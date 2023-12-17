@@ -3,9 +3,17 @@ import {
   ALLcOMPLETED,
   CLEARcOMPLETED,
   COLORcHANGED,
+  LOADtODOS,
   REMOVEtODOS,
   TOGGLED,
 } from "./TodosTypes";
+
+export function loadTodos(todos) {
+  return {
+    type: LOADtODOS,
+    payload: todos,
+  };
+}
 
 export function AddedTodos(textField) {
   return {
