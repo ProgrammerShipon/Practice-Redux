@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   allCompleted,
   clearCompleted,
@@ -6,6 +6,7 @@ import {
 import doubleTick from "../../assets/images/double-tick.png";
 
 export default function CompleteClear() {
+  const todos = useSelector((state) => state?.todos);
   const dispatch = useDispatch();
 
   const handleAllTaskComplete = () => {
@@ -15,6 +16,11 @@ export default function CompleteClear() {
   const handleCompleteClear = () => {
     dispatch(clearCompleted());
   };
+
+  // const handleCompleteClear = () => {
+  //   const completed = todos.filter((todo) => todo?.completed);
+  //   dispatch(thunkCompleteClearTodo(completed));
+  // };
 
   return (
     <>

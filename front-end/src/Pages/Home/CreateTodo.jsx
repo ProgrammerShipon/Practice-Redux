@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AddedTodos } from "../../Features/Todos/TodosActions";
+import thunkLoadTodoAdd from "../../Features/Todos/Thunk/thunkLoadTodoAdd";
 import notes from "../../assets/images/notes.png";
 import plus from "../../assets/images/plus.png";
 
 export default function SearchNav() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const dispatch = useDispatch();
 
   const handleInput = (e) => setInput(e.target.value);
@@ -13,13 +13,16 @@ export default function SearchNav() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(AddedTodos(input))
-    setInput(" ")
-  }
+    dispatch(thunkLoadTodoAdd(input));
+    setInput(" ");
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="flex items-center bg-gray-100 px-4 py-4 rounded-md">
+      <form
+        onSubmit={handleSubmit}
+        className="flex items-center bg-gray-100 px-4 py-4 rounded-md"
+      >
         <img src={notes} className="w-6 h-6" alt="Add todo" />
         <input
           onChange={handleInput}

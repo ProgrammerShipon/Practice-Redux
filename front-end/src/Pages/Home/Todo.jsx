@@ -1,27 +1,23 @@
 import { useDispatch } from "react-redux";
-import {
-  ColorChanged,
-  removeTodos,
-  toggled,
-} from "../../Features/Todos/TodosActions";
+import updateToggleColor from "../../Features/Todos/Thunk/updateToggleColor";
+import updateToggleComplete from "../../Features/Todos/Thunk/updateToggleComplete";
 import cancelIcon from "../../assets/images/cancel.png";
+import thunkRemoveTodo from "../../Features/Todos/Thunk/thunkRemoveTodo";
 
 export default function Todo({ todo }) {
   const dispatch = useDispatch();
   const { id, text, completed, color } = todo;
 
-  console.log("todo ", todo);
-
   const handleStatusChange = (id) => {
-    dispatch(toggled(id));
+    dispatch(updateToggleComplete(id, completed));
   };
 
   const handleColorChange = (id, color) => {
-    dispatch(ColorChanged(id, color));
+    dispatch(updateToggleColor(id, color));
   };
 
   const handleRemove = (id) => {
-    dispatch(removeTodos(id));
+    dispatch(thunkRemoveTodo(id));
   };
 
   return (
@@ -48,7 +44,9 @@ export default function Todo({ todo }) {
           )}
         </div>
 
-        <div className="select-none flex-1">{text}</div>
+        <p className={`select-none flex-1 ${completed && "line-through"}`}>
+          {text}
+        </p>
 
         <div
           onClick={() => handleColorChange(id, "green")}
