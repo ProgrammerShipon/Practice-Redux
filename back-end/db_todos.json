@@ -17,16 +17,22 @@
     "name": "typicode"
   },
   "todos": [
-  {
-    "id": 1,
-    "text": "Learn React JS",
-    "completed": true
-  },
-  {
-    "id": 2,
-    "text": "Learn Redux",
-    "completed": false,
-    "color": "red"
-  }
-]
+    {
+      "text": "hi miss",
+      "completed": false,
+      "id": 3,
+      "color": "yellow"
+    },
+    {
+      "text": " what is this",
+      "completed": true,
+      "id": 4,
+      "color": "green"
+    },
+    {
+      "text": " how",
+      "completed": true,
+      "id": 6
+    }
+  ]
 }
