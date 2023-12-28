@@ -1,33 +1,19 @@
-import { Provider } from "react-redux";
-import store from "../../Features/Store";
-import AllTodos from "./AllTodos";
-import CompleteClear from "./CompleteClear";
-import CreateTodo from "./CreateTodo";
-import FooterAction from "./FooterAction";
+import AddNewBook from "../../Components/AddNewBook";
+import BookList from "../../Components/BookList";
+import Header from "../../Components/Header";
 
 const Home = () => {
   return (
     <>
-      <Provider store={store}>
-        <section>
-          <div className="grid place-items-center bg-blue-100 h-screen px-6 font-sans">
-            <div className="w-full max-w-3xl shadow-lg rounded-lg p-6 bg-white">
-              <div>
-                <CreateTodo />
+      <Header />
 
-                <CompleteClear />
-              </div>
-              <hr className="mt-4" />
+      <main className="py-12 2xl:px-6">
+        <div className="container grid xl:grid-cols-[auto_350px] 2xl:grid-cols-[auto_400px] gap-4 2xl:gap-8">
+          <BookList />
 
-              <AllTodos />
-
-              <hr className="mt-4" />
-
-              <FooterAction />
-            </div>
-          </div>
-        </section>
-      </Provider>
+          <AddNewBook />
+        </div>
+      </main>
     </>
   );
 };
