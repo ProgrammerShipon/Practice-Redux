@@ -1,12 +1,36 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loading from "../../Ui/Loading";
+import { fetchVideos } from "../../features/videos/videosSlice";
 import VideoGridItem from "./VideoGridItem";
 
 const VideoGrid = () => {
+  const dispatch = useDispatch();
+  const { videos, isLoading, isError, error } = useSelector(
+    (state) => state?.videos
+  );
+
+  console.log("fetchVideos ", { videos, isLoading, isError, error });
+
+  useEffect(() => {
+    dispatch(fetchVideos());
+  }, [dispatch]);
+
+  // render ui
+  let content;
+  if (isLoading) content = <Loading />;
+  if (!isLoading && isError) content = <div> {error}</div>;
+  if (!isLoading && !isError && videos?.length > 0)
+    content = videos?.map((video, idx) => (
+      <VideoGridItem key={idx} video={video} />
+    ));
+
   return (
     <>
       <section className="pt-12">
         <section className="pt-12">
           <div className="grid grid-cols-12 gap-4 max-w-7xl mx-auto px-5 lg:px-0 min-h-[300px]">
-            <VideoGridItem />
+            {content}
           </div>
         </section>
       </section>
