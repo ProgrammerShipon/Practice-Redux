@@ -3,7 +3,7 @@ import Navbar from "./Components/Navbar/Navbar";
 import Home from "./pages/Home";
 
 import Footer from "./Components/Footer/Footer";
-import Video from "./pages/Videos";
+import Video from "./pages/Video";
 
 function App() {
   return (
